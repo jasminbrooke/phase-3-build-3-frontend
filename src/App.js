@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 import Home from './Home'
+import UserHome from './UserHome'
 const API = 'http://localhost:9292'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
 
   const handleLogin = (userName) => {
-    console.log(userName)
-
+    fetch(`${API}/login`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({username: userName })
+    })
+    .then(r => r.json())
+    .then(data => setCurrentUser(data))
   }
 
   const handleSignup = (userName, displayName) => {
@@ -29,6 +37,8 @@ function App() {
   const renderPage = (() => {
     if(!currentUser) {
       return <Home handleLogin={handleLogin} handleSignup={handleSignup}/>
+    } else {
+      return <UserHome currentUser={currentUser}/>
     }
   })()
 
