@@ -27,12 +27,36 @@ import EditIcon from '@mui/icons-material/Edit';
 const API = 'http://localhost:9292'
 
 const ProductCard = ( { product, handleDelete, handleOpen } ) => {
-  const {id, productname, description, cost, price, category, img_url} = product
+  const {id, productname, favorite, available, description, cost, price, category, img_url} = product
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
+  const [hearted, setHearted] = useState(favorite)
+  const [salable, setSalable] = useState(available)
   const open = Boolean(anchorEl)
-  const [available, setAvailable] = useState(true)
-  const [favorite, setFavorite] = useState(false)
+
+  const handleAvailable = (e) => {
+    e.preventDefault();
+    fetch(`${API}/product/${product.id}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({...product, available: !salable})
+      })
+      .then(() => setSalable(!salable))
+  }
+
+  const handleFavorite = (e) => {
+    e.preventDefault();
+    fetch(`${API}/product/${product.id}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({...product, favorite: !hearted})
+      })
+      .then(() => setHearted(!hearted))
+  }
 
   const handleCardMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -93,14 +117,15 @@ const ProductCard = ( { product, handleDelete, handleOpen } ) => {
         <CardHeader
           avatar={
             <IconButton 
-            onClick={() => setFavorite(!favorite)}
+            onClick={(e) => handleFavorite(e)}
             aria-label="favorite">
-              {favorite ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteIcon />}
+              {hearted ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteIcon />}
             </IconButton>
             }
           action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon onClick={handleCardMenu}/>
+            <IconButton onClick={handleCardMenu}
+            aria-label="settings">
+              <MoreVertIcon />
             </IconButton>
           }
           title={productname}
@@ -120,8 +145,8 @@ const ProductCard = ( { product, handleDelete, handleOpen } ) => {
         <CardActions disableSpacing>
           <IconButton 
           aria-label="change availability" 
-          onClick={() => setAvailable(!available)}>
-            {available? <SellIcon color='success' /> : <SellIcon />}
+          onClick={(e) => handleAvailable(e)}>
+            {salable? <SellIcon color='success' /> : <SellIcon />}
           </IconButton>
           <ExpandMore
             expand={expanded}

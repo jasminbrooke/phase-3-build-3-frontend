@@ -4,6 +4,8 @@ import NewProductForm from './NewProductForm'
 import { Box, IconButton, Modal } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SellIcon from '@mui/icons-material/Sell';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+
 
 const API = 'http://localhost:9292'
 
@@ -36,6 +38,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete 
                     <h1>Welcome, {currentUser.displayname}! </h1>
                     <IconButton><FavoriteIcon/>Show Bestsellers</IconButton>
                     <IconButton><SellIcon/>Show Currently Available Products</IconButton>
+                    <IconButton><FilterAltOffIcon/>Remove Filters</IconButton>
                     <ProductList currentProducts={currentProducts} handleDelete={handleDelete} handleOpen={handleOpen}/> 
                 </div>
                 <Modal

@@ -14,7 +14,7 @@ import FiberNewIcon from '@mui/icons-material/FiberNew';
 const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, setOpen }) => {
     const [productname, setProductname] = useState('Unnamed Product')
     const [description, setDescription] = useState('This product has no description.')
-    // const [available, setAvailable] = useState(true)
+    const [available, setAvailable] = useState(true)
     const [cost, setCost] = useState('0')
     const [price, setPrice] = useState('0')
     const [category, setCategory] = useState('Uncategorized')
@@ -22,7 +22,7 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
     const newProduct = {
         productname: productname, 
         description: description, 
-        // available: available, 
+        available: available, 
         cost: cost, 
         price: price, 
         category: category, 
@@ -51,7 +51,7 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
         if(edit){
             setProductname(product.productname)
             setDescription(product.description)
-            // setAvailable(product.available)
+            setAvailable(product.available)
             setCategory(product.category)
             setCost(product.cost)
             setImg_url(product.img_url)
