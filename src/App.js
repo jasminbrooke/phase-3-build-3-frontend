@@ -8,6 +8,7 @@ const API = 'http://localhost:9292'
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [currentProducts, setCurrentProducts] = useState([])
+  const [errors, setErrors] = useState({})
 
   const handleLogin = (userName) => {
     fetch(`${API}/login`, {
@@ -19,13 +20,22 @@ function App() {
     })
     .then(r => r.json())
     .then(data => {
-      setCurrentUser(data.user)
-      setCurrentProducts(data.products)
+      if(data.error) {
+        setErrors(data.error)
+      } else {
+        setCurrentUser(data.user)
+        setCurrentProducts(data.products)
+      }
     })
   }
 
+  const getProducts = () => {
+    fetch(`${API}/products/${currentUser.id}`)
+    .then(res => res.json())
+    .then(data => setCurrentProducts(data))
+  }
+
   const handleSignup = (userName, displayName) => {
-    console.log(userName, displayName)
     fetch(`${API}/users`, {
       method: 'POST',
       headers: {
@@ -37,7 +47,13 @@ function App() {
       })
     })
     .then(res => res.json())
-    .then(data => setCurrentUser(data))
+    .then(data => {
+      if(data.error) {
+        setErrors(data.error)
+      } else {
+        setCurrentUser(data)
+      }
+    })
   }
 
   const handleProducts = (data) => setCurrentProducts([ ...currentProducts, data ])
@@ -52,13 +68,14 @@ function App() {
 
   const renderPage = (() => {
     if(!currentUser) {
-      return <Home handleLogin={handleLogin} handleSignup={handleSignup}/>
+      return <Home handleLogin={handleLogin} handleSignup={handleSignup} errors={errors}/>
     } else {
       return <UserHome
               currentUser={currentUser}
               currentProducts={currentProducts}
               handleProducts={handleProducts}
               handleDelete={handleDelete}
+              getProducts={getProducts}
              />
     }
   })()

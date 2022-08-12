@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
@@ -26,12 +26,12 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const API = 'http://localhost:9292'
 
-const ProductCard = ( { product, handleDelete, handleOpen } ) => {
+const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
   const {id, productname, favorite, available, description, cost, price, category, img_url} = product
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
   const [hearted, setHearted] = useState(favorite)
-  const [salable, setSalable] = useState(available)
+  // const [salable, setSalable] = useState(available)
   const open = Boolean(anchorEl)
 
   const handleAvailable = (e) => {
@@ -41,9 +41,10 @@ const ProductCard = ( { product, handleDelete, handleOpen } ) => {
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({...product, available: !salable})
+        body: JSON.stringify({...product, available: !available})
       })
-      .then(() => setSalable(!salable))
+      // .then(() => setSalable(!salable))
+      .then(() => getProducts())
   }
 
   const handleFavorite = (e) => {
@@ -56,6 +57,7 @@ const ProductCard = ( { product, handleDelete, handleOpen } ) => {
         body: JSON.stringify({...product, favorite: !hearted})
       })
       .then(() => setHearted(!hearted))
+      .then(() => getProducts())
   }
 
   const handleCardMenu = (event) => {
@@ -146,7 +148,7 @@ const ProductCard = ( { product, handleDelete, handleOpen } ) => {
           <IconButton 
           aria-label="change availability" 
           onClick={(e) => handleAvailable(e)}>
-            {salable? <SellIcon color='success' /> : <SellIcon />}
+            {available ? <SellIcon color='success' /> : <SellIcon />}
           </IconButton>
           <ExpandMore
             expand={expanded}

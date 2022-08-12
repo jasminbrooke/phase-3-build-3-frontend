@@ -5,11 +5,10 @@ import { Box, IconButton, Modal } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SellIcon from '@mui/icons-material/Sell';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { pink } from '@mui/material/colors';
 
-
-const API = 'http://localhost:9292'
-
-const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete } ) => {
+const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts } ) => {
+    const [filter, setFilter] = useState('')
     const [open, setOpen] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState({})
     const handleClose = () => setOpen(false);
@@ -17,6 +16,16 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete 
         setSelectedProduct(product)
         setOpen(true)
     }
+
+    const filteredProducts = currentProducts.filter((p) => {
+        if (filter === 'Favorite') {
+            return p.favorite === true
+        } else if(filter === 'Available') {
+            return p.available === true
+        } else {
+            return p
+        }
+    })
 
     const style = {
         position: 'absolute',
@@ -36,10 +45,18 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete 
                     <NewProductForm currentUser={currentUser} handleProducts={handleProducts}/>
                 <div>
                     <h1>Welcome, {currentUser.displayname}! </h1>
-                    <IconButton><FavoriteIcon/>Show Bestsellers</IconButton>
-                    <IconButton><SellIcon/>Show Currently Available Products</IconButton>
-                    <IconButton><FilterAltOffIcon/>Remove Filters</IconButton>
-                    <ProductList currentProducts={currentProducts} handleDelete={handleDelete} handleOpen={handleOpen}/> 
+                    <IconButton onClick={() => setFilter('Favorite')}>
+                        {filter === 'Favorite' ? <FavoriteIcon sx={{ color: pink[500] }}/> : <FavoriteIcon/>}Show Bestsellers</IconButton>
+                    <IconButton onClick={() => setFilter('Available')}>
+                        {filter === 'Available' ? <SellIcon color='success'/> : <SellIcon/>} Show Currently Available Products</IconButton> 
+                    <IconButton onClick={() => setFilter('None')}>
+                        <FilterAltOffIcon/>Remove Filters</IconButton>
+                    <ProductList 
+                        getProducts={getProducts}
+                        handleDelete={handleDelete}
+                        handleOpen={handleOpen}
+                        filteredProducts={filteredProducts}
+                    /> 
                 </div>
                 <Modal
                     open={open}
