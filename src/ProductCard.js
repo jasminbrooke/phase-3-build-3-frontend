@@ -27,7 +27,7 @@ import EditIcon from '@mui/icons-material/Edit';
 const API = 'http://localhost:9292'
 
 const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
-  const {id, productname, favorite, available, description, cost, price, category, img_url} = product
+  const {id, productname, favorite, available, description, cost, price, category, img_url, profit} = product
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
   const [hearted, setHearted] = useState(favorite)
@@ -166,7 +166,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
                     <list>
                         <li>Cost of materials: {cost}</li>
                         <li>Sale price: {price}</li>
-                        <li>Profit: {price - cost}</li>
+                        <li>Profit: {profit}</li>
                     </list>
                 </Typography>
           </CardContent>

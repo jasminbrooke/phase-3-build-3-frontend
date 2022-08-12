@@ -50,7 +50,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
                     <IconButton onClick={() => setFilter('Available')}>
                         {filter === 'Available' ? <SellIcon color='success'/> : <SellIcon/>} Show Currently Available Products</IconButton> 
                     <IconButton onClick={() => setFilter('None')}>
-                        <FilterAltOffIcon/>Remove Filters</IconButton>
+                        <FilterAltOffIcon/>Remove Filter</IconButton>
                     <ProductList 
                         getProducts={getProducts}
                         handleDelete={handleDelete}
