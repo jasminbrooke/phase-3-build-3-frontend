@@ -8,7 +8,6 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import { pink } from '@mui/material/colors';
 
 const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts } ) => {
-    const [disabled, setDisabled] = useState(false)
     const [filter, setFilter] = useState('')
     const [open, setOpen] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState({})
@@ -40,12 +39,6 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
         p: 4,
       };
 
-const handleFilter = (term) => {
-    setFilter(term)
-    setDisabled(!disabled)
-}
-
-
     return (
         <div>
             <div id='userHomeDiv'>
@@ -53,16 +46,26 @@ const handleFilter = (term) => {
                 <div>
                     <h1>Welcome, {currentUser.displayname}! </h1>
                     <IconButton 
-                    disabled={disabled}
-                    onClick={() => handleFilter('Favorite')}>
-                        {filter === 'Favorite' ? <FavoriteIcon sx={{ color: pink[500] }}/> : <FavoriteIcon/>}Show Bestsellers</IconButton>
+                        disabled={filter === 'Favorite'}
+                        onClick={() => setFilter('Favorite')}
+                    >
+                        {filter === 'Favorite' ? <FavoriteIcon sx={{ color: pink[500] }}/> : <FavoriteIcon/>}
+                        Show Bestsellers
+                    </IconButton>
                     <IconButton 
-                    disabled={disabled}
-                    onClick={() => handleFilter('Available')}>
-                        {filter === 'Available' ? <SellIcon color='success'/> : <SellIcon/>} Show Currently Available Products</IconButton> 
+                        disabled={filter === 'Available'}
+                        onClick={() => setFilter('Available')}
+                    >
+                        {filter === 'Available' ? <SellIcon color='success'/> : <SellIcon/>}
+                        Show Currently Available Products
+                    </IconButton> 
                     <IconButton 
-                    onClick={() => handleFilter('None')}>
-                        <FilterAltOffIcon/>Remove Filter</IconButton>
+                        disabled={filter === 'None'}
+                        onClick={() => setFilter('None')}
+                    >
+                        <FilterAltOffIcon/>
+                        Remove Filter
+                    </IconButton>
                     <ProductList 
                         getProducts={getProducts}
                         handleDelete={handleDelete}
