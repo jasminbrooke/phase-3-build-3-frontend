@@ -56,7 +56,7 @@ function App() {
     })
   }
 
-  const handleProducts = (data) => setCurrentProducts([ ...currentProducts, data ])
+  const handleProducts = (data) => setCurrentProducts([...currentProducts.filter(p => p.id !== data.id), data])
 
   const handleDelete = (id) => {
     fetch(`${API}/product/${id}`, {
