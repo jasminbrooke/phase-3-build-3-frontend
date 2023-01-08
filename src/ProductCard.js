@@ -30,12 +30,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
   const {id, productname, favorite, available, description, cost, price, category, img_url} = product
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
-  const [hearted, setHearted] = useState(false)
   const open = Boolean(anchorEl)
-
-  useEffect(()=> {
-    setHearted(favorite)
-  }, [favorite])
 
   const handleAvailable = (e) => {
     e.preventDefault();
@@ -56,9 +51,8 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({...product, favorite: !hearted})
+        body: JSON.stringify({...product, favorite: !favorite})
       })
-      .then(() => setHearted(!hearted))
       .then(() => getProducts())
   }
 
@@ -123,7 +117,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
             <IconButton 
             onClick={(e) => handleFavorite(e)}
             aria-label="favorite">
-              {hearted ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteIcon />}
+              {favorite ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteIcon />}
             </IconButton>
             }
           action={

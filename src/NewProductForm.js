@@ -22,6 +22,7 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
         price: price, 
         category: category, 
         img_url: img_url,
+        favorite: false,
         user_id: currentUser.id
     }
     const method = edit ? 'PATCH' : 'POST'
