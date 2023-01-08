@@ -27,7 +27,7 @@ import EditIcon from '@mui/icons-material/Edit';
 const API = 'http://localhost:9292'
 
 const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
-  const {id, productname, favorite, available, description, cost, price, category, img_url, profit} = product
+  const {id, productname, favorite, available, description, cost, price, category, img_url} = product
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
   const [hearted, setHearted] = useState(false)
