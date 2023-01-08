@@ -4,12 +4,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import FiberNewIcon from '@mui/icons-material/FiberNew';
-
 
 const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, setOpen }) => {
     const [productname, setProductname] = useState('Unnamed Product')
@@ -64,9 +59,7 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
             <Card sx={{ maxWidth: 400 }}>
             <Typography variant='h4'>Create a Product</Typography>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <CardHeader
-                    // avatar={<FiberNewIcon/>}
-                    
+                    <CardHeader                    
                     title={<TextField defaultValue={edit ? product.productname : null} onChange={(e) => setProductname(e.target.value)} id="outlined-basic" label="productname" variant="outlined" size="small"/>} 
                     subheader={<TextField defaultValue={edit ? product.category : null} onChange={(e) => setCategory(e.target.value)} id="outlined-basic" label="category" variant="outlined" size="small"/>}
                     />
@@ -76,16 +69,6 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
                     image={img_url}
                     alt={productname}
                     />
-                        {/* <Stack direction="row" alignItems="center" spacing={2}>
-                            <Button variant="contained" component="label">
-                                Upload
-                                <input hidden accept="image/*" multiple type="file" />
-                            </Button>
-                            <IconButton color="primary" aria-label="upload picture" component="label">
-                                <input hidden accept="image/*" type="file" />
-                                <PhotoCamera />
-                            </IconButton>
-                        </Stack> */}
                     <CardContent>
                         <TextField defaultValue={edit ? product.img_url : null} onChange={(e) => setImg_url(e.target.value)} id="outlined-basic" label="img_url" variant="outlined" size="small"/>
                         <Typography paragraph>Details:</Typography>
