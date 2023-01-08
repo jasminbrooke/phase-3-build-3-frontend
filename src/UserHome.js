@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import ProductList from './ProductList'
 import NewProductForm from './NewProductForm'
-import { Box, IconButton, Modal } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import SellIcon from '@mui/icons-material/Sell';
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { pink } from '@mui/material/colors';
+import FilterBar from './FilterBar'
+import { Box, Modal } from '@mui/material'
 
 const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts } ) => {
     const [filter, setFilter] = useState('')
@@ -16,6 +13,8 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
         setSelectedProduct(product)
         setOpen(true)
     }
+
+    const handleFilter = (value) => setFilter(value) 
 
     const filteredProducts = currentProducts.filter((p) => {
         if (filter === 'Favorite') {
@@ -45,27 +44,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
                     <NewProductForm currentUser={currentUser} handleProducts={handleProducts}/>
                 <div>
                     <h1>Welcome, {currentUser.displayname}! </h1>
-                    <IconButton 
-                        disabled={filter === 'Favorite'}
-                        onClick={() => setFilter('Favorite')}
-                    >
-                        {filter === 'Favorite' ? <FavoriteIcon sx={{ color: pink[500] }}/> : <FavoriteIcon/>}
-                        Show Bestsellers
-                    </IconButton>
-                    <IconButton 
-                        disabled={filter === 'Available'}
-                        onClick={() => setFilter('Available')}
-                    >
-                        {filter === 'Available' ? <SellIcon color='success'/> : <SellIcon/>}
-                        Show Currently Available Products
-                    </IconButton> 
-                    <IconButton 
-                        disabled={filter === 'None'}
-                        onClick={() => setFilter('None')}
-                    >
-                        <FilterAltOffIcon/>
-                        Remove Filter
-                    </IconButton>
+                    <FilterBar filter={filter} handleFilter={handleFilter}/>
                     <ProductList 
                         getProducts={getProducts}
                         handleDelete={handleDelete}
@@ -90,12 +69,8 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
                     </Box>
                 </Modal>          
             </div>
-           
-
         </div>
     )
-
-
 }
 
 export default UserHome
