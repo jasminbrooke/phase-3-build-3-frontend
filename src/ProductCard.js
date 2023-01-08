@@ -30,9 +30,13 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
   const {id, productname, favorite, available, description, cost, price, category, img_url, profit} = product
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
-  const [hearted, setHearted] = useState(favorite)
+  const [hearted, setHearted] = useState(false)
   // const [salable, setSalable] = useState(available)
   const open = Boolean(anchorEl)
+
+  useEffect(()=> {
+    setHearted(favorite)
+  }, [favorite])
 
   const handleAvailable = (e) => {
     e.preventDefault();
@@ -166,7 +170,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
                     <list>
                         <li>Cost of materials: {cost}</li>
                         <li>Sale price: {price}</li>
-                        <li>Profit: {profit}</li>
+                        <li>Profit: {price - cost}</li>
                     </list>
                 </Typography>
           </CardContent>
