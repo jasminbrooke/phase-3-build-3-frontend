@@ -31,7 +31,6 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
   const [hearted, setHearted] = useState(false)
-  // const [salable, setSalable] = useState(available)
   const open = Boolean(anchorEl)
 
   useEffect(()=> {
@@ -47,7 +46,6 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
         },
         body: JSON.stringify({...product, available: !available})
       })
-      // .then(() => setSalable(!salable))
       .then(() => getProducts())
   }
 
