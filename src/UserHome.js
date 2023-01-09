@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ProductList from './ProductList'
 import NewProductForm from './NewProductForm'
 import FilterBar from './FilterBar'
-import { Box, Modal } from '@mui/material'
+import EditCardModal from './EditCardModal'
 
 const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts } ) => {
     const [filter, setFilter] = useState('')
@@ -26,17 +26,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
         }
     })
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-      };
+    
 
     return (
         <div>
@@ -52,22 +42,14 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
                         filteredProducts={filteredProducts}
                     /> 
                 </div>
-                <Modal
+                <EditCardModal
                     open={open}
                     onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style}>
-                        <NewProductForm
-                            currentUser={currentUser}
-                            handleProducts={handleProducts}
-                            edit={true}
-                            product={selectedProduct}
-                            setOpen={setOpen}
-                        />
-                    </Box>
-                </Modal>          
+                    currentUser={currentUser}
+                    handleProducts={handleProducts}
+                    product={selectedProduct}
+                    setOpen={setOpen}
+                />
             </div>
         </div>
     )

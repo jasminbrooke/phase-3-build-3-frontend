@@ -61,8 +61,8 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
             <Typography variant='h4'>Create a Product</Typography>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <CardHeader                    
-                    title={<TextField defaultValue={edit ? product.productname : null} onChange={(e) => setProductname(e.target.value)} id="outlined-basic" label="productname" variant="outlined" size="small"/>} 
-                    subheader={<TextField defaultValue={edit ? product.category : null} onChange={(e) => setCategory(e.target.value)} id="outlined-basic" label="category" variant="outlined" size="small"/>}
+                        title={<TextField defaultValue={edit ? product.productname : null} onChange={(e) => setProductname(e.target.value)} id="outlined-basic" label="productname" variant="outlined" size="small"/>} 
+                        subheader={<TextField defaultValue={edit ? product.category : null} onChange={(e) => setCategory(e.target.value)} id="outlined-basic" label="category" variant="outlined" size="small"/>}
                     />
                     <CardMedia
                     component="img"
@@ -93,9 +93,7 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
                                 variant="outlined" 
                                 size="small"
                             />
-
                             Profit: {price - cost}
-                            
                     </CardContent>
                     <Button type="submit">Submit</Button> 
                 </form>

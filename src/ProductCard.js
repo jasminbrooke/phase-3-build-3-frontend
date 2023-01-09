@@ -85,8 +85,9 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
         <CardHeader
           avatar={
             <IconButton 
-            onClick={(e) => handleFavorite(e)}
-            aria-label="favorite">
+              onClick={(e) => handleFavorite(e)}
+              aria-label="favorite"
+            >
               {favorite ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteIcon />}
             </IconButton>
           }
@@ -112,8 +113,9 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton 
-          aria-label="change availability" 
-          onClick={(e) => handleAvailable(e)}>
+            aria-label="change availability" 
+            onClick={(e) => handleAvailable(e)}
+          >
             {available ? <SellIcon color='success' /> : <SellIcon />}
           </IconButton>
           <ExpandMore
