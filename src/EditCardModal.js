@@ -13,7 +13,7 @@ const EditCardModal =( { open, handleClose, currentUser, handleProducts, selecte
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
-      };
+    };
 
     return (
         <Modal

@@ -26,8 +26,6 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
         }
     })
 
-    
-
     return (
         <div>
             <div id='userHomeDiv'>
