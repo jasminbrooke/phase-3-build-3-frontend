@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import CardMenu from './CardMenu'
+import CardDetails from './CardDetails'
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
@@ -88,7 +89,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
             aria-label="favorite">
               {favorite ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteIcon />}
             </IconButton>
-            }
+          }
           action={
             <IconButton onClick={handleCardMenu}
             aria-label="settings">
@@ -126,14 +127,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Details:</Typography>
-                <Typography variant="body2" color="text.secondary">
-                    <list>
-                        <li>Cost of materials: {cost}</li>
-                        <li>Sale price: {price}</li>
-                        <li>Profit: {price - cost}</li>
-                    </list>
-                </Typography>
+            <CardDetails cost={cost} price={price}/>
           </CardContent>
         </Collapse>
       </Card>
