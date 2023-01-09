@@ -1,4 +1,5 @@
 import React from 'react'
+import NewProductForm from './NewProductForm'
 import { Box, Modal } from '@mui/material'
 
 const EditCardModal =( { open, handleClose, currentUser, handleProducts, selectedProduct, setOpen } ) => {
