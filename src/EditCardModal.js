@@ -2,7 +2,7 @@ import React from 'react'
 import NewProductForm from './NewProductForm'
 import { Box, Modal } from '@mui/material'
 
-const EditCardModal =( { open, handleClose, currentUser, handleProducts, selectedProduct, setOpen } ) => {
+const EditCardModal =( { open, handleClose, currentUser, handleProducts, product, setOpen } ) => {
     const style = {
         position: 'absolute',
         top: '50%',
@@ -27,7 +27,7 @@ const EditCardModal =( { open, handleClose, currentUser, handleProducts, selecte
                     currentUser={currentUser}
                     handleProducts={handleProducts}
                     edit={true}
-                    product={selectedProduct}
+                    product={product}
                     setOpen={setOpen}
                 />
             </Box>

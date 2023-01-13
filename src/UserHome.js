@@ -29,7 +29,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
     return (
         <div>
             <div id='userHomeDiv'>
-                    <NewProductForm currentUser={currentUser} handleProducts={handleProducts}/>
+                    <NewProductForm currentUser={currentUser} handleProducts={handleProducts} setOpen={setOpen}/>
                 <div>
                     <h1>Welcome, {currentUser.displayname}! </h1>
                     <FilterBar filter={filter} handleFilter={handleFilter}/>

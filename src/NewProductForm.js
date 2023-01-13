@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, setOpen }) => {
+    const [errors, setErrors] = useState({})
     const [productname, setProductname] = useState('Unnamed Product')
     const [description, setDescription] = useState('This product has no description.')
     const [available, setAvailable] = useState(true)
@@ -39,8 +40,14 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
             body: JSON.stringify(newProduct)
           })
           .then(res => res.json())
-          .then(data => handleProducts(data))
-          .then(() => setOpen(false))
+          .then(data => {
+            if (data.error) {
+                setErrors(data.error)
+            } else {
+                handleProducts(data)
+                setOpen(false)
+            }
+          })
     }
 
     useEffect(() => {
@@ -61,7 +68,18 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
             <Typography variant='h4'>Create a Product</Typography>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <CardHeader                    
-                        title={<TextField defaultValue={edit ? product.productname : null} onChange={(e) => setProductname(e.target.value)} id="outlined-basic" label="productname" variant="outlined" size="small"/>} 
+                        title={
+                            <TextField
+                                error={errors.productname}
+                                helperText={errors.productname}
+                                defaultValue={edit ? product.productname : null}
+                                onChange={(e) => setProductname(e.target.value)}
+                                id="outlined-basic"
+                                label="productname"
+                                variant="outlined"
+                                size="small"
+                            />
+                        } 
                         subheader={<TextField defaultValue={edit ? product.category : null} onChange={(e) => setCategory(e.target.value)} id="outlined-basic" label="category" variant="outlined" size="small"/>}
                     />
                     <CardMedia
