@@ -27,7 +27,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
 
   const handleAvailable = (e) => {
     e.preventDefault();
-    fetch(`${API}/product/${product.id}`, {
+    fetch(`${API}/products/${product.id}`, {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json'
@@ -39,7 +39,7 @@ const ProductCard = ( { product, handleDelete, handleOpen, getProducts } ) => {
 
   const handleFavorite = (e) => {
     e.preventDefault();
-    fetch(`${API}/product/${product.id}`, {
+    fetch(`${API}/products/${product.id}`, {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json'

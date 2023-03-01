@@ -59,7 +59,7 @@ function App() {
   const handleProducts = (data) => setCurrentProducts([...currentProducts.filter(p => p.id !== data.id), data])
 
   const handleDelete = (id) => {
-    fetch(`${API}/product/${id}`, {
+    fetch(`${API}/products/${id}`, {
         method: 'DELETE',
         headers: { 'Content-type': 'application/json' }
     })
