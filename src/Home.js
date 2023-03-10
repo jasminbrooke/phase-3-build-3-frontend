@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 
-const Home = ({ handleLogin, handleSignup, errors }) => {
+const Home = ({ users, handleLogin, handleSignup, errors }) => {
     const [userName, setUserName] = useState('')
     const [displayName, setDisplayName] = useState('')
     
@@ -15,10 +15,18 @@ const Home = ({ handleLogin, handleSignup, errors }) => {
         handleSignup(userName, displayName)
     }
 
+    const renderUsers = () => {
+        return (<Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+            {
+                users.map(user => <div key={user.id}>{user.displayname}</div>)
+            }
+        </Box>)
+    }
+
     return (
         <>
             <h1>Build a Business</h1>
-            <form onSubmit={(e) => submitLogin(e)}>
+            {/* <form onSubmit={(e) => submitLogin(e)}>
                 <TextField
                   error={errors.login}
                   id="outlined-error"
@@ -27,8 +35,7 @@ const Home = ({ handleLogin, handleSignup, errors }) => {
                   onChange={(e) => setUserName(e.target.value)}
                 />
                 <Button type="submit"> Log In</Button>
-            </form>
-
+            </form> */}
             <form onSubmit={(e) => submitSignup(e)}>
                 <TextField
                     error={errors.displayname}
@@ -46,6 +53,7 @@ const Home = ({ handleLogin, handleSignup, errors }) => {
                 />
                 <Button type="submit"> Sign Up</Button>
             </form>
+            {renderUsers()}
         </>
     )
 }
