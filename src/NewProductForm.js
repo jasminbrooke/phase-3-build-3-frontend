@@ -28,7 +28,7 @@ const NewProductForm = ( { currentUser, handleProducts, edit=false, product={}, 
     }
     const method = edit ? 'PATCH' : 'POST'
     const API = `http://localhost:9292`
-    const URL = edit ? `product/${product.id}` : `products`
+    const URL = edit ? `products/${product.id}` : `products`
 
     const handleSubmit = (e) => {
         e.preventDefault();

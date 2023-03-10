@@ -3,6 +3,7 @@ import ProductList from './ProductList'
 import NewProductForm from './NewProductForm'
 import FilterBar from './FilterBar'
 import EditCardModal from './EditCardModal'
+import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 
 const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts, handleLogin } ) => {
     const [filter, setFilter] = useState('')
@@ -31,7 +32,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
             <div id='userHomeDiv'>
                     <NewProductForm currentUser={currentUser} handleProducts={handleProducts} setOpen={setOpen}/>
                 <div>
-                    <h1>Welcome, {currentUser.displayname}! <button onClick={() => handleLogin(null)}>Change User</button></h1>
+                    <h1>Welcome, {currentUser.displayname}! <button onClick={() => handleLogin(null)}>Change User<SwitchAccountIcon/></button></h1>
                     <FilterBar filter={filter} handleFilter={handleFilter}/>
                     <ProductList 
                         getProducts={getProducts}

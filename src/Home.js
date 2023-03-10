@@ -3,6 +3,7 @@ import { Box, Button, TextField } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Home = ({ users, handleLogin, handleSignup, errors }) => {
     const [userName, setUserName] = useState('')
@@ -23,9 +24,10 @@ const Home = ({ users, handleLogin, handleSignup, errors }) => {
             {
                 users.map(user => 
                     <Card key={user.id} onClick={() => handleLogin(user.id)}>
-                        <CardContent>
+                        <CardContent align='center'>
+                            <AccountCircleIcon fontSize="large"/>
                             <Typography variant="body2" color="text.secondary">
-                            {user.displayname}
+                            {user.displayname} 
                             </Typography>
                         </CardContent>
                     </Card>

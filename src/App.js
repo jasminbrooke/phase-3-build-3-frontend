@@ -12,6 +12,10 @@ function App() {
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
+    getUsers()
+  }, [])
+
+  const getUsers = () => {
     fetch(`${API}/users`)
     .then(r => r.json())
     .then(data => {
@@ -19,7 +23,7 @@ function App() {
       // setCurrentUser(data.user)
       // setCurrentProducts(data.products)
     })
-  }, [])
+  }
 
   const handleLogin = (id) => {
     if(id === null){
@@ -53,6 +57,7 @@ function App() {
       if(data.error) {
         setErrors(data.error)
       } else {
+        setUsers([...users, data])
         setCurrentUser(data)
       }
     })
@@ -60,10 +65,12 @@ function App() {
 
   const handleProducts = (formData) => {
     const editedOrNewProduct = formData // this is the product from the NewProductForm that could be either new or edited
-    if (currentProducts.includes(editedOrNewProduct)) { // if editedOrNewProduct is in currentProducts, that means we're editing, and do the following
+    if (currentProducts.find(product => product.id === editedOrNewProduct.id)) { // if editedOrNewProduct is in currentProducts, that means we're editing, and do the following
       const editedProducts = currentProducts.map(product => {
        if (product.id === editedOrNewProduct.id) {
-        product = editedOrNewProduct // replace old version of product with edited one
+        return editedOrNewProduct // replace old version of product with edited one
+       } else {
+        return product // return the products that we're not editing as well
        }
       })
       setCurrentProducts(editedProducts)
@@ -79,6 +86,7 @@ function App() {
       // setCurrentProducts([...editedProducts, editedOrNewProduct])
     } else { // we get here if we are not editing, but adding a new product instead
      // setCurrentProducts([...currentProducts, editedProducts]) // set the currentProducts in state equal an array made up of everything that was in currentProducts already, and the new product
+     setCurrentProducts([...currentProducts, editedOrNewProduct])
     }
   }
   
@@ -87,7 +95,8 @@ function App() {
         method: 'DELETE',
         headers: { 'Content-type': 'application/json' }
     })
-    .then(() => setCurrentProducts(currentProducts.filter(p => p.id !== id )))
+    .then(res => res.json())
+    .then(() => setCurrentProducts(currentProducts.filter(p => p.id !== id)))
   }
 
   const renderPage = (() => {
