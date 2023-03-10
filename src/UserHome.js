@@ -4,7 +4,7 @@ import NewProductForm from './NewProductForm'
 import FilterBar from './FilterBar'
 import EditCardModal from './EditCardModal'
 
-const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts } ) => {
+const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete, getProducts, handleLogin } ) => {
     const [filter, setFilter] = useState('')
     const [open, setOpen] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState({})
@@ -31,7 +31,7 @@ const UserHome = ( { currentUser, currentProducts, handleProducts, handleDelete,
             <div id='userHomeDiv'>
                     <NewProductForm currentUser={currentUser} handleProducts={handleProducts} setOpen={setOpen}/>
                 <div>
-                    <h1>Welcome, {currentUser.displayname}! </h1>
+                    <h1>Welcome, {currentUser.displayname}! <button onClick={() => handleLogin(null)}>Change User</button></h1>
                     <FilterBar filter={filter} handleFilter={handleFilter}/>
                     <ProductList 
                         getProducts={getProducts}

@@ -21,8 +21,14 @@ function App() {
     })
   }, [])
 
-  const handleLogin = (userName) => {
-    
+  const handleLogin = (id) => {
+    if(id === null){
+      setCurrentUser(null)
+      setCurrentProducts([])
+    } else {
+    const selectedUser = users.find(user => user.id === id)
+    setCurrentUser(selectedUser)
+    setCurrentProducts(selectedUser.products)}
   }
 
   const getProducts = () => {
@@ -89,6 +95,7 @@ function App() {
       return <Home users={users} handleLogin={handleLogin} handleSignup={handleSignup} errors={errors}/>
     } else {
       return <UserHome
+              handleLogin={handleLogin}
               currentUser={currentUser}
               currentProducts={currentProducts}
               handleProducts={handleProducts}

@@ -7,13 +7,15 @@ const ProductList = ({ filteredProducts, handleDelete, handleOpen, getProducts }
     return (
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
             {
-                filteredProducts.map((product, i) => <ProductCard
-                                                        key={i}
-                                                        product={product}
-                                                        handleDelete={handleDelete}
-                                                        handleOpen={handleOpen}
-                                                        getProducts={getProducts}
-                                                     />)
+                filteredProducts.map((product, i) => 
+                    <ProductCard
+                        key={i}
+                        product={product}
+                        handleDelete={handleDelete}
+                        handleOpen={handleOpen}
+                        getProducts={getProducts}
+                    />
+                )
             }
         </Box>
     )    
